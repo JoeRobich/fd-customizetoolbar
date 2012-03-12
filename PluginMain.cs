@@ -19,7 +19,7 @@ namespace CustomizeToolbar
         private const int API_KEY = 1;
         private const String NAME = "CustomizeToolbar";
         private const String GUID = "A6A38601-1DAC-4d2e-A610-5D6400093346";
-        private const String HELP = "www.flashdevelop.org/community/";
+        private const String HELP = "www.flashdevelop.org/community/viewtopic.php?f=4&t=9482";
         private const String DESCRIPTION = "Allows you to customize the order and visibility of toolbar items.";
         private const String AUTHOR = "Joey Robichaud";
 

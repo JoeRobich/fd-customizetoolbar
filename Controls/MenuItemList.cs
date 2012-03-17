@@ -10,6 +10,8 @@ namespace CustomizeToolbar.Controls
 {
     public class MenuItemList : Panel
     {
+        public event EventHandler SelectedItemChanged;
+
         private MenuToolStrip _menuToolStrip = null;
         private MenuItem _selectedMenuItem = null;
 
@@ -77,12 +79,20 @@ namespace CustomizeToolbar.Controls
 
             _selectedMenuItem = (MenuItem)sender;
             _selectedMenuItem.Checked = true;
+
+            OnSelectedItemChanged();
         }
 
         protected override void OnScroll(ScrollEventArgs se)
         {
             base.OnScroll(se);
             _menuToolStrip.Refresh();
+        }
+
+        protected void OnSelectedItemChanged()
+        {
+            if (SelectedItemChanged != null)
+                SelectedItemChanged(this, new EventArgs());
         }
     }
 

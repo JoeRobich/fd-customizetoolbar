@@ -73,6 +73,7 @@
             // 
             // addMenuItem
             // 
+            this.addMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addMenuItem.Location = new System.Drawing.Point(350, 72);
             this.addMenuItem.Name = "addMenuItem";
             this.addMenuItem.Size = new System.Drawing.Size(24, 24);
@@ -82,6 +83,7 @@
             // 
             // removeMenuItem
             // 
+            this.removeMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.removeMenuItem.Enabled = false;
             this.removeMenuItem.Location = new System.Drawing.Point(350, 102);
             this.removeMenuItem.Name = "removeMenuItem";
@@ -90,7 +92,7 @@
             this.removeMenuItem.UseVisualStyleBackColor = true;
             this.removeMenuItem.Click += new System.EventHandler(this.removeMenuItem_Click);
             // 
-            // ToolbarDialog
+            // CustomizeDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -103,7 +105,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(399, 291);
-            this.Name = "ToolbarDialog";
+            this.Name = "CustomizeDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;

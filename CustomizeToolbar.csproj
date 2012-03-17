@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ChooseImageDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ChooseImageDialog.Designer.cs">
+      <DependentUpon>ChooseImageDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MenuItemList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -62,6 +68,7 @@
     <Compile Include="Controls\CustomizeDialog.Designer.cs">
       <DependentUpon>CustomizeDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ToolbarHelper.cs" />
     <Compile Include="Localization\Attributes.cs" />
@@ -79,6 +86,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\AddItemDialog.resx">
       <DependentUpon>AddItemDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChooseImageDialog.resx">
+      <DependentUpon>ChooseImageDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CustomizeDialog.resx">
       <DependentUpon>CustomizeDialog.cs</DependentUpon>

@@ -17,6 +17,7 @@ namespace CustomizeToolbar.Controls
         {
             InitializeComponent();
             InitializeDialog();
+            HookEvents();
             PopulateMenuList();
         }
 
@@ -32,6 +33,23 @@ namespace CustomizeToolbar.Controls
             this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Select");
             this.cancel.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Cancel");
             menuItemList.Renderer = new DockPanelStripRenderer();
+        }
+
+        private void HookEvents()
+        {
+            menuItemList.SelectedItemChanged += new EventHandler(menuItemList_SelectedItemChanged);
+        }
+
+        void menuItemList_SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (menuItemList.SelectedItem.Image != null)
+            {
+                this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Select");
+            }
+            else
+            {
+                this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.ChooseImage");
+            }
         }
 
         public ToolStripMenuItem SelectedItem
@@ -92,6 +110,18 @@ namespace CustomizeToolbar.Controls
 
         private void select_Click(object sender, EventArgs e)
         {
+            if (SelectedItem.Image == null)
+            {
+                ChooseImageDialog chooseImage = new ChooseImageDialog();
+                if (chooseImage.ShowDialog() == DialogResult.OK)
+                {
+                    ((ToolStripMenuItem)SelectedItem.Tag).Image = chooseImage.SelectedImage;
+                    ((ToolStripMenuItem)SelectedItem.Tag).Image.Tag = chooseImage.SelectedImageName;
+                }
+                else
+                    return;
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

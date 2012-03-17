@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
+using CustomizeToolbar.Helpers;
 
 namespace CustomizeToolbar
 {
@@ -15,6 +16,7 @@ namespace CustomizeToolbar
         private string _menuName = string.Empty;
         private string _itemName = string.Empty;
         private string _itemText = string.Empty;
+        private string _imageName = string.Empty;
 
         public ToolItem(ToolStripItem item)
         {
@@ -28,6 +30,7 @@ namespace CustomizeToolbar
             : this(item)
         {
             _menuName = menuName;
+            _imageName = item.Image.Tag != null ? item.Image.Tag.ToString() : string.Empty;
         }
 
         protected ToolItem(SerializationInfo info, StreamingContext context)
@@ -36,6 +39,8 @@ namespace CustomizeToolbar
             _menuName = info.GetString("menuName");
             _itemName = info.GetString("itemName");
             _itemText = info.GetString("itemText");
+            if (info.MemberCount > 4)
+                _imageName = info.GetString("imageName");
         }
 
         public string MenuName { get { return _menuName; } }
@@ -65,6 +70,19 @@ namespace CustomizeToolbar
             get
             {
                 return Item == null ? _itemText : Item is ToolStripSeparator ? "Separator" : Item.Text;
+            }
+        }
+
+        public string ImageName
+        {
+            get 
+            { 
+                return _imageName; 
+            }
+
+            set
+            {
+                _imageName = value;
             }
         }
 
@@ -103,6 +121,7 @@ namespace CustomizeToolbar
             info.AddValue("menuName", MenuName);
             info.AddValue("itemName", Name);
             info.AddValue("itemText", Text);
+            info.AddValue("imageName", ImageName);
         }
 
         #endregion

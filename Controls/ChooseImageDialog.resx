@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,37 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CustomizeToolbar.Label.AddItem" xml:space="preserve">
-    <value>Add Item</value>
-  </data>
-  <data name="CustomizeToolbar.Label.Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="CustomizeToolbar.Label.Categories" xml:space="preserve">
-    <value>Categories:</value>
-  </data>
-  <data name="CustomizeToolbar.Label.ChooseImage" xml:space="preserve">
-    <value>Choose Image</value>
-  </data>
-  <data name="CustomizeToolbar.Label.Commands" xml:space="preserve">
-    <value>Commands:</value>
-  </data>
-  <data name="CustomizeToolbar.Label.Customize" xml:space="preserve">
-    <value>Customize</value>
-  </data>
-  <data name="CustomizeToolbar.Label.Select" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="CustomizeToolbar.Tooltip.AddItem" xml:space="preserve">
-    <value>Add Item</value>
-  </data>
-  <data name="CustomizeToolbar.Tooltip.MoveDown" xml:space="preserve">
-    <value>Move Down</value>
-  </data>
-  <data name="CustomizeToolbar.Tooltip.MoveUp" xml:space="preserve">
-    <value>Move Up</value>
-  </data>
-  <data name="CustomizeToolbar.Tooltip.RemoveItem" xml:space="preserve">
-    <value>Remove Item</value>
-  </data>
 </root>

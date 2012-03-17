@@ -218,6 +218,11 @@ namespace CustomizeToolbar
                     {
                         if (menuItem.Text == toolItem.Text)
                         {
+                            if (!string.IsNullOrEmpty(toolItem.ImageName))
+                            {
+                                menuItem.Image = PluginBase.MainForm.FindImage(toolItem.ImageName);
+                            }
+
                             // Create ToolButton for menu item
                             ToolStripButton toolButton = ToolbarHelper.CreateButton((ToolStripMenuItem)menuItem);
                             toolItem.Item = toolButton;

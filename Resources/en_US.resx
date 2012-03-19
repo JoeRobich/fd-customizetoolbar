@@ -120,6 +120,9 @@
   <data name="CustomizeToolbar.Label.AddItem" xml:space="preserve">
     <value>Add Item</value>
   </data>
+  <data name="CustomizeToolbar.Label.Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
   <data name="CustomizeToolbar.Label.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -127,7 +130,7 @@
     <value>Categories:</value>
   </data>
   <data name="CustomizeToolbar.Label.ChooseImage" xml:space="preserve">
-    <value>Choose Image</value>
+    <value>Choose Image...</value>
   </data>
   <data name="CustomizeToolbar.Label.Commands" xml:space="preserve">
     <value>Commands:</value>

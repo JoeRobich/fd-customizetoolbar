@@ -119,7 +119,11 @@ namespace CustomizeToolbar.Controls
                     ((ToolStripMenuItem)SelectedItem.Tag).Image.Tag = chooseImage.SelectedImageName;
                 }
                 else
+                {
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
                     return;
+                }
             }
 
             this.DialogResult = DialogResult.OK;

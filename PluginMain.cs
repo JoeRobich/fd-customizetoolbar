@@ -220,7 +220,11 @@ namespace CustomizeToolbar
                         {
                             if (!string.IsNullOrEmpty(toolItem.ImageName))
                             {
-                                menuItem.Image = PluginBase.MainForm.FindImage(toolItem.ImageName);
+                                int imageNumber = -1;
+                                if (int.TryParse(toolItem.ImageName, out imageNumber))
+                                    menuItem.Image = PluginBase.MainForm.FindImage(toolItem.ImageName);
+                                else if (File.Exists(toolItem.ImageName))
+                                    menuItem.Image = Image.FromFile(toolItem.ImageName);
                             }
 
                             // Create ToolButton for menu item

@@ -31,6 +31,8 @@
             this.imageList = new System.Windows.Forms.ListView();
             this.cancel = new System.Windows.Forms.Button();
             this.select = new System.Windows.Forms.Button();
+            this.browse = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // imageList
@@ -69,6 +71,22 @@
             this.select.UseVisualStyleBackColor = true;
             this.select.Click += new System.EventHandler(this.select_Click);
             // 
+            // browse
+            // 
+            this.browse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.browse.Location = new System.Drawing.Point(13, 228);
+            this.browse.Name = "browse";
+            this.browse.Size = new System.Drawing.Size(100, 23);
+            this.browse.TabIndex = 3;
+            this.browse.Text = "Browse...";
+            this.browse.UseVisualStyleBackColor = true;
+            this.browse.Click += new System.EventHandler(this.browse_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "Image Files|*.jpg;*.bmp;*.gif;*.png|All Files|*.*";
+            this.openFileDialog.Title = "Browse...";
+            // 
             // ChooseImageDialog
             // 
             this.AcceptButton = this.select;
@@ -76,6 +94,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(384, 263);
+            this.Controls.Add(this.browse);
             this.Controls.Add(this.select);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.imageList);
@@ -97,5 +116,7 @@
         private System.Windows.Forms.ListView imageList;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button select;
+        private System.Windows.Forms.Button browse;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

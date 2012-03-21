@@ -11,15 +11,24 @@ namespace CustomizeToolbar.Helpers
     {
         public static void ArrangeToolbar(List<ToolItem> items)
         {
+            List<ToolItem> missingToolItems = new List<ToolItem>();
             for (int index = 0; index < items.Count; index++)
             {
                 ToolItem toolItem = items[index];
+                if (toolItem.Item == null)
+                {
+                    missingToolItems.Add(toolItem);
+                    continue;
+                }
                 if (string.IsNullOrEmpty(toolItem.MenuName))
                 {
                     PluginBase.MainForm.ToolStrip.Items.Remove(toolItem.Item);
                 }
-                PluginBase.MainForm.ToolStrip.Items.Insert(index, toolItem.Item);
+                PluginBase.MainForm.ToolStrip.Items.Insert(index - missingToolItems.Count, toolItem.Item);
             }
+
+            foreach (ToolItem toolItem in missingToolItems)
+                items.Remove(toolItem);
         }
 
         public static ToolStripButton CreateButton(ToolStripMenuItem menuItem)

@@ -8,6 +8,9 @@ using PluginCore;
 
 namespace CustomizeToolbar.Controls
 {
+    /// <summary>
+    /// A CheckBox List that renders as a DropDown menu.
+    /// </summary>
     public class MenuItemList : Panel
     {
         public event EventHandler SelectedItemChanged;
@@ -47,6 +50,7 @@ namespace CustomizeToolbar.Controls
         {
             _menuToolStrip.Items.Clear();
 
+            // Add the MenuItems to the list
             foreach (ToolStripMenuItem item in items)
             {
                 ToolStripMenuItem menuItem = new MenuItem(item.Text, item.Image, null, item.Name);
@@ -61,11 +65,17 @@ namespace CustomizeToolbar.Controls
                 _menuToolStrip.Items[0].PerformClick();
         }
 
+        /// <summary>
+        /// Gets the currently selected MenuItem
+        /// </summary>
         public ToolStripMenuItem SelectedItem
         {
             get { return _selectedMenuItem; }
         }
 
+        /// <summary>
+        /// Gets and Sets the renderer used to draw the menu list
+        /// </summary>
         public ToolStripRenderer Renderer
         {
             get { return _menuToolStrip.Renderer; }
@@ -74,6 +84,7 @@ namespace CustomizeToolbar.Controls
 
         private void menuItem_Click(object sender, EventArgs e)
         {
+            // Update the selected menu item
             if (_selectedMenuItem != null)
                 _selectedMenuItem.Checked = false;
 
@@ -85,6 +96,7 @@ namespace CustomizeToolbar.Controls
 
         protected override void OnScroll(ScrollEventArgs se)
         {
+            // Force the menu to refresh
             base.OnScroll(se);
             _menuToolStrip.Refresh();
         }
@@ -100,6 +112,7 @@ namespace CustomizeToolbar.Controls
     {
         protected override void OnPaintBackground(PaintEventArgs e)
         {
+            // Force draw the image margin to simulate a dropdown menu
             base.OnPaintBackground(e);
             Renderer.DrawImageMargin(new ToolStripRenderEventArgs(e.Graphics, this, new Rectangle(0, 0, 27, this.Height), SystemColors.Control));
         }
@@ -107,6 +120,7 @@ namespace CustomizeToolbar.Controls
 
     class MenuItem : ToolStripMenuItem
     {
+        // Share the checkmark image
         private static Image Checkmark = null;
 
         public MenuItem(string text, Image image, EventHandler onClick, string name)
@@ -114,10 +128,14 @@ namespace CustomizeToolbar.Controls
         {
             if (Checkmark == null)
             {
+                // Get the checkmark image used by FD
                 Checkmark = PluginBase.MainForm.FindImage("485");
             }
         }
 
+        /// <summary>
+        /// Gets the toolstrip renderer
+        /// </summary>
         private ToolStripRenderer Renderer
         {
             get { return ((ToolStrip)Owner).Renderer; }

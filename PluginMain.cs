@@ -201,6 +201,13 @@ namespace CustomizeToolbar
             {
                 if (!string.IsNullOrEmpty(toolItem.MenuName))
                 {
+                    if (toolItem.MenuName == "-")
+                    {
+                        toolItem.Item = new ToolStripSeparator();
+                        toolItem.Item.Name = "-";
+                        continue;
+                    }
+
                     ToolStripMenuItem menu = null;
                     // Find Menu
                     foreach (ToolStripMenuItem item in PluginBase.MainForm.MenuStrip.Items)

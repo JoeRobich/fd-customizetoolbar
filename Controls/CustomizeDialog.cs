@@ -47,9 +47,11 @@ namespace CustomizeToolbar.Controls
 
                 if (_items != null)
                 {
+                    // Add all the ToolItems to the list.
                     foreach (ToolItem item in _items)
                     {
                         itemList.Items.Add(item);
+                        // Check the item if it is visible
                         if (item.Visible)
                             itemList.SetItemChecked(itemList.Items.Count - 1, true);
                     }
@@ -61,6 +63,7 @@ namespace CustomizeToolbar.Controls
 
         private void toolItemVisibility_ItemCheck(object sender, ItemCheckEventArgs e)
         {
+            // Toggle item visibility
             ToolItem item = (ToolItem)itemList.Items[e.Index];
             item.Visible = e.NewValue == CheckState.Checked;
         }
@@ -106,19 +109,37 @@ namespace CustomizeToolbar.Controls
             AddItemDialog dialog = new AddItemDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                ToolStripMenuItem item = dialog.SelectedItem;
-                ToolStripMenuItem menuItem = (ToolStripMenuItem)item.Tag;
+                ToolItem toolItem = null;
 
-                // Create ToolBar Button
-                ToolStripButton toolButton = ToolbarHelper.CreateButton(menuItem);
+                // The selected item was a MenuItem so add it as a ToolStripButton
+                if (dialog.SelectedItem is ToolStripMenuItem)
+                {
+                    ToolStripMenuItem item = dialog.SelectedItem as ToolStripMenuItem;
+                    ToolStripMenuItem menuItem = (ToolStripMenuItem)item.Tag;
 
-                // Create ToolItem
-                ToolItem toolItem = new ToolItem(toolButton, dialog.SelectedMenu);
+                    // Create ToolBar Button
+                    ToolStripButton toolButton = ToolbarHelper.CreateButton(menuItem);
+
+                    // Create ToolItem
+                    toolItem = new ToolItem(toolButton, dialog.SelectedMenu);
+                }
+                else
+                {
+                    // Otherwise create a ToolItem for the separator
+                    dialog.SelectedItem.Name = "-";
+                    toolItem = new ToolItem(dialog.SelectedItem, "-");
+                }
                 toolItem.Visible = true;
 
-                Items.Add(toolItem);
-                itemList.Items.Add(toolItem);
-                itemList.SetItemChecked(itemList.Items.Count - 1, true);
+                // Insert it based on the currently selected item in the tool item list
+                int index = itemList.SelectedIndex < 0 ? itemList.Items.Count : itemList.SelectedIndex + 1;
+
+                Items.Insert(index, toolItem);
+                itemList.Items.Insert(index, toolItem);
+                itemList.SetItemChecked(index, true);
+
+                // Select the new item to more easily move it
+                itemList.SelectedIndex = index;
                 
                 ToolbarHelper.ArrangeToolbar(Items);
             }
@@ -129,6 +150,7 @@ namespace CustomizeToolbar.Controls
             if (itemList.SelectedItem != null)
             {               
                 ToolItem item = (ToolItem)itemList.SelectedItem;
+                // Only remove items that have a MenuName
                 if (!string.IsNullOrEmpty(item.MenuName))
                 {
                     PluginBase.MainForm.ToolStrip.Items.Remove(item.Item);
@@ -141,6 +163,7 @@ namespace CustomizeToolbar.Controls
 
         private void itemList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Update the buttons based on what actions can be performed on the selected item.
             if (itemList.SelectedItem != null)
             {
                 moveItemUp.Enabled = itemList.SelectedIndex > 0;

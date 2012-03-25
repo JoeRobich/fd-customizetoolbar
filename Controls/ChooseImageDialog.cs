@@ -36,6 +36,7 @@ namespace CustomizeToolbar.Controls
         private void InitializeImageList()
         {
             imageList.LargeImageList = ImageHelper.Images;
+            // Add each image as an item in the list
             for (int imageIndex = 0; imageIndex < imageList.LargeImageList.Images.Count; imageIndex++)
             {
                 string imageName = imageIndex.ToString();
@@ -78,6 +79,7 @@ namespace CustomizeToolbar.Controls
 
         private void browse_Click(object sender, EventArgs e)
         {
+            // Show the open file dialog so that the user can select a custom image
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 imageList.SelectedItems.Clear();

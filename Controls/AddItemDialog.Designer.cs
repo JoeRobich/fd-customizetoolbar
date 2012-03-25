@@ -35,6 +35,7 @@
             this.cancel = new System.Windows.Forms.Button();
             this.select = new System.Windows.Forms.Button();
             this.menuItemList = new CustomizeToolbar.Controls.MenuItemList();
+            this.addSeparator = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // menuList
@@ -99,6 +100,16 @@
             this.menuItemList.Size = new System.Drawing.Size(227, 225);
             this.menuItemList.TabIndex = 4;
             // 
+            // addSeparator
+            // 
+            this.addSeparator.Location = new System.Drawing.Point(12, 257);
+            this.addSeparator.Name = "addSeparator";
+            this.addSeparator.Size = new System.Drawing.Size(100, 23);
+            this.addSeparator.TabIndex = 7;
+            this.addSeparator.Text = "Add Separator";
+            this.addSeparator.UseVisualStyleBackColor = true;
+            this.addSeparator.Click += new System.EventHandler(this.addSeparator_Click);
+            // 
             // AddItemDialog
             // 
             this.AcceptButton = this.select;
@@ -106,6 +117,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(394, 286);
+            this.Controls.Add(this.addSeparator);
             this.Controls.Add(this.select);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.menuItemList);
@@ -133,5 +145,6 @@
         private MenuItemList menuItemList;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button select;
+        private System.Windows.Forms.Button addSeparator;
     }
 }

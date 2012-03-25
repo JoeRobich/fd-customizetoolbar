@@ -13,6 +13,8 @@ namespace CustomizeToolbar.Controls
 {
     public partial class AddItemDialog : Form
     {
+        private ToolStripItem _selectedItem = null;
+
         public AddItemDialog()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace CustomizeToolbar.Controls
             this.commands.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Commands");
             this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Select");
             this.cancel.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Cancel");
+            this.addSeparator.Text = ResourceHelper.GetString("CustomizeToolbar.Label.AddSeparator");
             menuItemList.Renderer = new DockPanelStripRenderer();
         }
 
@@ -42,6 +45,8 @@ namespace CustomizeToolbar.Controls
 
         void menuItemList_SelectedItemChanged(object sender, EventArgs e)
         {
+            // Update the text on the select button to indicate whether the user will need to
+            // choose an image for the command
             if (menuItemList.SelectedItem.Image != null)
             {
                 this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Select");
@@ -52,9 +57,10 @@ namespace CustomizeToolbar.Controls
             }
         }
 
-        public ToolStripMenuItem SelectedItem
+        public ToolStripItem SelectedItem
         {
-            get { return menuItemList.SelectedItem; }
+            // Return the selected item. If _selectedItem is populated then it will take precedence.
+            get { return _selectedItem ?? menuItemList.SelectedItem; }
         }
 
         public string SelectedMenu
@@ -66,6 +72,7 @@ namespace CustomizeToolbar.Controls
         {
             menuList.Items.Clear();
 
+            // Add all the menu bar items. Removing short cut indicator.
             foreach (ToolStripMenuItem item in PluginBase.MainForm.MenuStrip.Items)
             {
                 menuList.Items.Add(item.Text.Replace("&", ""));
@@ -78,6 +85,8 @@ namespace CustomizeToolbar.Controls
         private void menuList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ToolStripMenuItem menu = null;
+
+            // Find the selected menu item by comparing names.
             foreach (ToolStripMenuItem item in PluginBase.MainForm.MenuStrip.Items)
             {
                 string itemText = item.Text.Replace("&", "");
@@ -93,6 +102,7 @@ namespace CustomizeToolbar.Controls
 
             List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
+            // Add each of the items from the selected menu
             foreach (ToolStripItem item in menu.DropDownItems)
             {
                 if (!(item is ToolStripMenuItem))
@@ -110,6 +120,7 @@ namespace CustomizeToolbar.Controls
 
         private void select_Click(object sender, EventArgs e)
         {
+            // If the selected command has no image then show the choose image dialog.
             if (SelectedItem.Image == null)
             {
                 ChooseImageDialog chooseImage = new ChooseImageDialog();
@@ -133,6 +144,13 @@ namespace CustomizeToolbar.Controls
         private void cancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void addSeparator_Click(object sender, EventArgs e)
+        {
+            _selectedItem = new ToolStripSeparator();
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

@@ -30,11 +30,12 @@ namespace CustomizeToolbar
             : this(item)
         {
             _menuName = menuName;
-            _imageName = item.Image.Tag != null ? item.Image.Tag.ToString() : string.Empty;
+            _imageName = (item.Image != null && item.Image.Tag != null) ? item.Image.Tag.ToString() : string.Empty;
         }
 
         protected ToolItem(SerializationInfo info, StreamingContext context)
         {
+            // Selectively deserialize the ToolItem
             Visible = info.GetBoolean("visible");
             _menuName = info.GetString("menuName");
             _itemName = info.GetString("itemName");
@@ -94,6 +95,7 @@ namespace CustomizeToolbar
 
         public override string ToString()
         {
+            // Create a readable name based on Name, Text, and MenuName properties.
             string label = string.IsNullOrEmpty(Text) ? Name : Text;
             label = label.Replace("&", string.Empty);
             if (!string.IsNullOrEmpty(MenuName))
@@ -117,6 +119,7 @@ namespace CustomizeToolbar
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            // Selectively serialize the ToolItem
             info.AddValue("visible", Visible);
             info.AddValue("menuName", MenuName);
             info.AddValue("itemName", Name);

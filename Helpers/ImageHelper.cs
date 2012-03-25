@@ -12,6 +12,9 @@ namespace CustomizeToolbar.Helpers
     {
         private static ImageList _images = null;
 
+        /// <summary>
+        /// Gets an image list of all the images supplied with FD
+        /// </summary>
         public static ImageList Images
         {
             get

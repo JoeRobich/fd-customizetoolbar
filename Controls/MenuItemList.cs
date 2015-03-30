@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using PluginCore;
+using PluginCore.Helpers;
 
 namespace CustomizeToolbar.Controls
 {
@@ -30,6 +31,7 @@ namespace CustomizeToolbar.Controls
             // 
             this._menuToolStrip.CanOverflow = false;
             this._menuToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._menuToolStrip.ImageScalingSize = ScaleHelper.Scale(new Size(16, 16));
             this._menuToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this._menuToolStrip.Location = new System.Drawing.Point(0, 0);
             this._menuToolStrip.Name = "menuItems";
@@ -113,14 +115,15 @@ namespace CustomizeToolbar.Controls
         {
             // Force draw the image margin to simulate a dropdown menu
             base.OnPaintBackground(e);
-            Renderer.DrawImageMargin(new ToolStripRenderEventArgs(e.Graphics, this, new Rectangle(0, 0, 27, this.Height), SystemColors.Control));
+            var imageWidth = ScaleHelper.Scale(27);
+            Renderer.DrawImageMargin(new ToolStripRenderEventArgs(e.Graphics, this, new Rectangle(0, 0, imageWidth, this.Height), SystemColors.Control));
         }
     }
 
     class MenuItem : ToolStripMenuItem
     {
         // Share the checkmark image
-        private static Image Checkmark = null;
+        public static Image Checkmark = null;
 
         public MenuItem(string text, Image image, EventHandler onClick, string name)
             : base(text, image, onClick, name)
@@ -129,6 +132,32 @@ namespace CustomizeToolbar.Controls
             {
                 // Get the checkmark image used by FD
                 Checkmark = PluginBase.MainForm.FindImage("485");
+            }
+        }
+
+        public override Image Image
+        {
+            get
+            {
+                if (this.Checked && base.Image == null)
+                    return Checkmark;
+
+                return base.Image;
+            }
+            set
+            {
+                base.Image = value;
+            }
+        }
+
+        public override bool Selected
+        {
+            get
+            {
+                if (this.Checked)
+                    return true;
+
+                return base.Selected;
             }
         }
 
@@ -143,14 +172,14 @@ namespace CustomizeToolbar.Controls
         public override Size GetPreferredSize(Size constrainingSize)
         {
             Size preferredSize = base.GetPreferredSize(constrainingSize);
-            preferredSize.Height = 23;
+            preferredSize.Height = ScaleHelper.Scale(23);
             return preferredSize;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            int imageSize = 16;
-            int imageMargin = 27;
+            int imageSize = ScaleHelper.Scale(16);
+            int imageMargin = ScaleHelper.Scale(27);
             int thisHeight = this.Height;
             int imageXOffset = ((imageMargin - imageSize) / 2);
             int imageYOffset = ((thisHeight - imageSize) / 2);
@@ -159,21 +188,21 @@ namespace CustomizeToolbar.Controls
             Renderer.DrawMenuItemBackground(new ToolStripItemRenderEventArgs(e.Graphics, this));
 
             // Draw image
-            Point topLeft = new Point(imageXOffset, imageYOffset);
-            Rectangle imageRectagle = new Rectangle(topLeft, new Size(16, 16));
+            Rectangle imageRectagle = new Rectangle(new Point(imageXOffset, imageYOffset), ScaleHelper.Scale(new Size(16, 16)));
             Renderer.DrawItemImage(new ToolStripItemImageRenderEventArgs(e.Graphics, this, imageRectagle));
 
             // Draw Text
-            topLeft.Offset(imageMargin - imageXOffset + 4, -imageYOffset);
-            Rectangle textRectangle = new Rectangle(topLeft, new Size(e.ClipRectangle.Width - imageMargin, thisHeight));
+            Rectangle textRectangle = new Rectangle(e.ClipRectangle.Location, e.ClipRectangle.Size);
+            textRectangle.Offset(imageMargin + 4, 0);
+            textRectangle.Width -= (imageMargin + 4);
             Renderer.DrawItemText(new ToolStripItemTextRenderEventArgs(e.Graphics, this, this.Text, textRectangle, this.ForeColor, this.Font, ContentAlignment.MiddleLeft));
 
-            // Draw Checked
-            if (this.Checked)
-                if (this.Image == null)
-                    Renderer.DrawItemCheck(new ToolStripItemImageRenderEventArgs(e.Graphics, this, Checkmark, imageRectagle));
-                else
-                    Renderer.DrawItemCheck(new ToolStripItemImageRenderEventArgs(e.Graphics, this, this.Image, imageRectagle));
+            //// Draw Checked
+            //if (this.Checked)
+            //    if (this.Image == null)
+            //        Renderer.DrawItemCheck(new ToolStripItemImageRenderEventArgs(e.Graphics, this, Checkmark, imageRectagle));
+            //    else
+            //        Renderer.DrawItemCheck(new ToolStripItemImageRenderEventArgs(e.Graphics, this, this.Image, imageRectagle));
         }
     }
 }

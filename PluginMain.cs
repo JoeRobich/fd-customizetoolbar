@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using CustomizeToolbar.Helpers;
 using CustomizeToolbar.Controls;
 using System.Collections.Generic;
+using PluginCore.Helpers;
 
 namespace CustomizeToolbar
 {
@@ -273,8 +274,9 @@ namespace CustomizeToolbar
         public void CreateMenuItems()
         {
             ContextMenuStrip menu = new ContextMenuStrip();
+            menu.ImageScalingSize = ScaleHelper.Scale(new Size(16, 16));
             menu.Renderer = new DockPanelStripRenderer();
-            menu.Items.Add(ResourceHelper.GetString("CustomizeToolbar.Label.Customize"), null, CustomizeClick);
+            menu.Items.Add(ResourceHelper.GetString("CustomizeToolbar.Label.Customize"), PluginBase.MainForm.FindImage("127"), CustomizeClick);
             PluginBase.MainForm.ToolStrip.ContextMenuStrip = menu;
         }
 

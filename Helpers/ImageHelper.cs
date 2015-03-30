@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using PluginCore;
 using System.Drawing;
+using PluginCore.Helpers;
 
 namespace CustomizeToolbar.Helpers
 {
@@ -21,6 +22,7 @@ namespace CustomizeToolbar.Helpers
                 if (_images == null)
                 {
                     _images = new ImageList();
+                    _images.ImageSize = ScaleHelper.Scale(new Size(16, 16));
                     for (int imageIndex = 0; imageIndex < 545; imageIndex++)
                     {
                         string imageName = imageIndex.ToString();

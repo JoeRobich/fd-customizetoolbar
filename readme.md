@@ -1,13 +1,14 @@
-# CustomizeToolbar for FlashDevelop 4
+# CustomizeToolbar for FlashDevelop 5
 
 Adds a context menu to the toolbar that gives the user dialog for changing order and visibility of toolbar buttons. Also, allows you to turn menu items into toolbar buttons.
 
 ![Screenshot](http://dl.dropbox.com/u/3917850/images/customizetoolbar.png)
 
 ## Download
-[Version 1.0](http://goo.gl/dZ0XT)
+[Version 1.1](http://goo.gl/dZ0XT)
 
 ## History
+**v1.1** - Fixed bug caused by having QuickLaunch in the MenuStrip. Better support for high DPI. Fixed bug with non-en_US locales. Updated to work with FD5.  
 **v1.0.1** - Now targets the .Net 2.0 Framework.  
 **v1.0** - Added the ability to insert Separators. Added items are now inserted just below the currently selected toolbar item.  
 **v0.9.1** - Handles Toolbar items that can no longer be found. (by removing a plugin for instance)  

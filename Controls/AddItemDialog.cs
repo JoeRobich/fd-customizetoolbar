@@ -46,7 +46,7 @@ namespace CustomizeToolbar.Controls
         {
             // Update the text on the select button to indicate whether the user will need to
             // choose an image for the command
-            if (menuItemList.SelectedItem.Image != null)
+            if (menuItemList.SelectedItem.Image != MenuItem.Checkmark)
             {
                 this.select.Text = ResourceHelper.GetString("CustomizeToolbar.Label.Select");
             }
@@ -72,9 +72,10 @@ namespace CustomizeToolbar.Controls
             menuList.Items.Clear();
 
             // Add all the menu bar items. Removing short cut indicator.
-            foreach (ToolStripMenuItem item in PluginBase.MainForm.MenuStrip.Items)
+            foreach (ToolStripItem item in PluginBase.MainForm.MenuStrip.Items)
             {
-                menuList.Items.Add(item.Text.Replace("&", ""));
+                if (item is ToolStripMenuItem)
+                    menuList.Items.Add(item.Text.Replace("&", ""));
             }
 
             if (menuList.Items.Count > 0)
@@ -120,7 +121,7 @@ namespace CustomizeToolbar.Controls
         private void select_Click(object sender, EventArgs e)
         {
             // If the selected command has no image then show the choose image dialog.
-            if (SelectedItem.Image == null)
+            if (SelectedItem.Image == MenuItem.Checkmark)
             {
                 ChooseImageDialog chooseImage = new ChooseImageDialog();
                 if (chooseImage.ShowDialog() == DialogResult.OK)

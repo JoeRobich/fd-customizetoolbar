@@ -5,7 +5,7 @@ Adds a context menu to the toolbar that gives the user dialog for changing order
 ![Screenshot](http://dl.dropbox.com/u/3917850/images/customizetoolbar.png)
 
 ## Download
-[Version 1.1](http://goo.gl/dZ0XT)
+[Releases](https://github.com/JoeRobich/fd-customizetoolbar/releases/) 
 
 ## History
 **v1.1** - Fixed bug caused by having QuickLaunch in the MenuStrip. Better support for high DPI. Fixed bug with non-en_US locales. Updated to work with FD5.  
